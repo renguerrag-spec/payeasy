@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PayEasy Mobile · Planificación Scrum</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--tx:#14213d;--mut:#5b6678;--ac:#0b8f6a;--ac2:#1d4ed8;--bd:#dde3ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1420;--card:#172033;--tx:#e8eefc;--mut:#98a4bd;--ac:#2fd3a0;--ac2:#7aa2ff;--bd:#27334d}}
+:root[data-theme="dark"]{--bg:#0e1420;--card:#172033;--tx:#e8eefc;--mut:#98a4bd;--ac:#2fd3a0;--ac2:#7aa2ff;--bd:#27334d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--card);border-bottom:1px solid var(--bd);display:flex;gap:16px;padding:12px 20px;overflow-x:auto;z-index:5}
+nav b{color:var(--ac);white-space:nowrap}nav a{color:var(--mut);text-decoration:none;white-space:nowrap;font-size:14px}nav a:hover{color:var(--ac)}
+header{padding:56px 20px 40px;max-width:980px;margin:auto}
+h1{font-size:clamp(28px,5vw,46px);margin:0 0 12px;line-height:1.15}
+header p{color:var(--mut);max-width:660px;font-size:18px}
+section{max-width:980px;margin:auto;padding:36px 20px}
+h2{font-size:26px;margin:0 0 16px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px}
+.kpi{font-size:32px;font-weight:700;color:var(--ac)}.card small,.mut{color:var(--mut)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button,.f button{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px;border-radius:999px;cursor:pointer;font:inherit;font-size:14px}
+.tabs button.on,.f button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:520px;background:var(--card);border:1px solid var(--bd);border-radius:12px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--bd);font-size:14px}th{color:var(--mut);font-weight:600}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--ac2) 15%,transparent);color:var(--ac2)}
+.pts{font-weight:700;color:var(--ac)}
+ul{padding-left:20px}li{margin:4px 0}
+.row{display:flex;gap:10px;margin:8px 0}.dot{flex:none;width:10px;height:10px;border-radius:50%;background:var(--ac);margin-top:9px}
+footer{text-align:center;color:var(--mut);padding:30px;font-size:14px}
+.proto{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));align-items:start}
+.phone{width:290px;height:540px;margin:auto;border:8px solid #111;border-radius:36px;background:#fff;color:#14213d;display:flex;flex-direction:column;overflow:hidden}
+.ph-top{padding:14px 16px 8px;font-size:12px;color:#5b6678;display:flex;justify-content:space-between}
+.ph-body{flex:1;display:flex;flex-direction:column;padding:8px 18px 18px;gap:12px;text-align:center;justify-content:center}
+.ph-body h4{margin:0;font-size:18px}.big{font-size:44px;font-weight:800;letter-spacing:-1px;min-height:54px}
+.pbtn{border:0;border-radius:14px;padding:14px;font:inherit;font-weight:700;font-size:16px;cursor:pointer;background:#0b8f6a;color:#fff}
+.pbtn.sec{background:#e7ecf3;color:#14213d}.pbtn.red{background:#b3261e}
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.keys button{padding:12px 0;border:0;border-radius:12px;background:#eef2f7;font-size:20px;font-weight:600;cursor:pointer;color:#14213d}
+.res{flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:20px;text-align:center;color:#fff}
+.res .ic{font-size:64px;line-height:1}.res .big{min-height:0}
+.ok{background:#0a7a3d}.bad{background:#b3261e}.wait{background:#8a5a00}
+.pulse{width:90px;height:90px;border-radius:50%;margin:auto;border:6px solid #0b8f6a;animation:pl 1.2s infinite}
+@keyframes pl{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.2);opacity:.2}}
+.steps{display:flex;gap:6px;justify-content:center;margin-bottom:12px}.steps span{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--bd);color:var(--mut)}.steps span.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.hl{border-left:3px solid transparent;padding:6px 10px;border-radius:6px}.hl.on{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.flow .card{flex:1 1 150px;text-align:center;padding:12px;font-size:14px}.flow i{color:var(--mut);font-style:normal}
+.rm{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.rm .card b{color:var(--ac)}
+.ck{display:flex;gap:12px;align-items:flex-start;cursor:pointer;margin-bottom:10px}.ck input{width:20px;height:20px;margin-top:4px;accent-color:var(--ac);flex:none}.ck b{display:block}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}#obar{transition:none!important}}
+</style>
+</head>
+<body>
+<nav><b>PayEasy Mobile</b><a href="#producto">Producto</a><a href="#requisitos">Requisitos</a><a href="#sprints">Sprints</a><a href="#prototipo">Prototipo MVP</a><a href="#estrategia">Estrategia</a><a href="#roadmap">Roadmap</a><a href="#calidad">Calidad</a><a href="#scrum">Eventos Scrum</a><a href="#dod">DoD</a></nav>
+
+<header>
+<h1>Cobros con tarjeta desde el celular, en segundos</h1>
+<p>Planificación Scrum de PayEasy Mobile: una solución para pequeños comerciantes y trabajadores independientes que reemplaza los enlaces de pago en ventas presenciales.</p>
+</header>
+
+<section id="producto">
+<h2>Producto y métricas de éxito</h2>
+<div class="grid">
+<div class="card"><div class="kpi">−30%</div><small>tiempo promedio por transacción vs. cobro por enlaces</small></div>
+<div class="card"><div class="kpi">≤ 2 s</div><small>respuesta en el 95% de las transacciones</small></div>
+<div class="card"><div class="kpi">3 pasos</div><small>máximo para iniciar un cobro</small></div>
+<div class="card"><div class="kpi">80%</div><small>satisfacción de comerciantes en pruebas</small></div>
+<div class="card"><div class="kpi">99,9%</div><small>disponibilidad en horarios comerciales</small></div>
+</div>
+</section>
+
+<section id="requisitos">
+<h2>Requisitos funcionales</h2>
+<div class="grid" id="rf"></div>
+</section>
+
+<section id="sprints">
+<h2>Sprint Planning y Backlog</h2>
+<div class="tabs" id="tabs"></div>
+<div class="card" id="goal" style="margin-bottom:14px"></div>
+<div class="f tabs" id="filtro"></div>
+<div class="tw"><table><thead><tr><th>ID</th><th>Rol</th><th>Historia</th><th>Pts</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p class="mut" id="total"></p>
+</section>
+
+<section id="prototipo">
+<h2>Prototipo MVP del cobro presencial</h2>
+<p class="mut">Maqueta conceptual del Sprint 1, construida desde sus historias de usuario. Es interactiva: ingresa un monto y recorre el flujo. Ruta principal: Iniciar cobro → Monto → Aproximar tarjeta.</p>
+<div class="proto">
+<div><div class="steps" id="pst"></div><div class="phone" id="phone"></div></div>
+<div>
+<div class="card" style="margin-bottom:14px"><b>¿Qué es un MVP?</b><p class="mut" style="margin:6px 0 0">Producto mínimo viable: el software más básico que una persona puede usar (el “monopatín” de la analogía del auto). Entrega valor rápido y permite validar hipótesis con feedback de comerciantes, según Lean Startup: construir, medir, aprender.</p></div>
+<div class="card"><b>Pantallas y historias que cubren</b><div id="phu" style="margin-top:8px"></div></div>
+<p class="mut" style="font-size:14px">Herramienta de maquetas del curso: Moqups. Resultado de aprendizaje RA3, indicadores IL 3.1 y IL 3.3 (maqueta según las historias del sprint).</p>
+</div>
+</div>
+</section>
+
+<section id="estrategia">
+<h2>Estrategia para construir y optimizar</h2>
+<p class="mut">Un enfoque ágil e iterativo (PPT del sprint) combinado con los requisitos no funcionales del informe de PayEasy.</p>
+<h3>1. Cómo construir (metodología)</h3>
+<div class="flow"><div class="card"><b>Crear</b><br><small>Prototipo o código rápido</small></div><i>→</i><div class="card"><b>Medir</b><br><small>Uso real con datos</small></div><i>→</i><div class="card"><b>Aprender</b><br><small>Feedback para mejorar</small></div><i>↺</i></div>
+<div class="grid" style="margin-top:14px">
+<div class="card"><b>MVP primero</b><br><small>La versión más básica y funcional (el “monopatín” antes que el auto) para que un usuario real resuelva su problema principal.</small></div>
+<div class="card"><b>Prototipado sin código</b><br><small>Diseñar la interfaz con maquetas interactivas (Moqups) antes de programar: colaboración, flujos simulados y feedback temprano a bajo costo.</small></div>
+<div class="card"><b>Trabajo con Scrum</b><br><small>Sprints cortos, historias priorizadas por valor y ajustes en cada Sprint Review.</small></div>
+</div>
+<h3>2. Capas de diseño del software</h3>
+<div class="grid">
+<div class="card"><span class="tag">Capa 1</span><br><b>Interfaz de usuario</b><br><small>Visual e interacción.</small></div>
+<div class="card"><span class="tag">Capa 2</span><br><b>Lógica de negocio</b><br><small>Funciones y reglas que operan el sistema.</small></div>
+<div class="card"><span class="tag">Capa 3</span><br><b>Modelo de datos</b><br><small>Cómo se almacena y consulta la información.</small></div>
+<div class="card"><span class="tag">Capa 4</span><br><b>Arquitectura</b><br><small>Cómo se comunican y se controlan los componentes.</small></div>
+</div>
+<h3>3. Cómo optimizar la app y la plataforma web</h3>
+<div class="tabs" id="otabs"></div>
+<div id="olist"></div>
+<p class="mut" id="oprog"></p>
+<div style="height:8px;border-radius:99px;background:var(--bd);overflow:hidden"><div id="obar" style="height:100%;width:0;background:var(--ac);transition:width .3s"></div></div>
+</section>
+
+<section id="roadmap">
+<h2>Roadmap, ecosistema y valor</h2>
+<div class="rm">
+<div class="card"><b>1 · Flujo básico</b><br><small>Inicio de cobro, ingreso de monto y generación de solicitud.</small></div>
+<div class="card"><b>2 · Tarjeta y estados</b><br><small>Lectura NFC/chip, autorización en línea y estados en tiempo real.</small></div>
+<div class="card"><b>3 · Confirmaciones e historial</b><br><small>Confirmaciones al cliente, reintentos, historial y errores claros.</small></div>
+<div class="card"><b>4 · Panel administrativo</b><br><small>Supervisión, métricas, reportes y comparación con el sistema anterior.</small></div>
+</div>
+<h3>Ecosistema PayEasy Mobile</h3>
+<div class="flow"><div class="card">Vendedor</div><i>→</i><div class="card">Dispositivo de pago</div><i>→</i><div class="card">Adquirente / Banco</div><i>→</i><div class="card">Nube segura y reportes</div><i>→</i><div class="card">Administrador</div></div>
+<h3>Perspectiva y valor</h3>
+<div class="grid">
+<div class="card"><b>Perspectiva</b><br><small>Se integra a la app PayEasy para complementar los pagos por enlace (SMS o correo). No es entidad financiera ni administra cuentas.</small></div>
+<div class="card"><b>Diferenciación</b><br><small>Transacciones inmediatas sin hardware costoso ni infraestructura adicional.</small></div>
+<div class="card"><b>Escalabilidad</b><br><small>El modelo iterativo permite llegar a nuevos mercados y segmentos sin bancarización.</small></div>
+<div class="card"><b>Impacto</b><br><small>Más conversión y menos fricción en el punto de venta.</small></div>
+</div>
+<h3>Equipo Scrum</h3>
+<div class="grid">
+<div class="card"><b>Cristóbal Letelier</b><br><small>Product Owner: backlog, priorización y validación final.</small></div>
+<div class="card"><b>Daniel Muñoz</b><br><small>Scrum Master: ceremonias, bloques y coordinación.</small></div>
+<div class="card"><b>Renato Guerra</b><br><small>Desarrollador: arquitectura móvil, APIs de pago, frontend/backend y seguridad cifrada.</small></div>
+</div>
+</section>
+
+<section id="calidad">
+<h2>Seguridad, interoperabilidad y eficiencia</h2>
+<div class="grid">
+<div class="card"><b>Protección de datos</b><br><small>TLS 1.3 o superior. No se guarda el número completo de tarjeta ni el CVV.</small></div>
+<div class="card"><b>Autenticación</b><br><small>PIN, huella o reconocimiento facial.</small></div>
+<div class="card"><b>Continuidad</b><br><small>Informar pérdida de conexión sin confirmar pagos inciertos, validar montos incorrectos e impedir cobros duplicados.</small></div>
+<div class="card"><b>Integridad</b><br><small>Conservar transacciones confirmadas con monto, fecha, estado y resultado consistentes.</small></div>
+<div class="card"><b>Interoperabilidad</b><br><small>APIs con la pasarela, JSON, NFC, cámara y biometría del dispositivo.</small></div>
+<div class="card"><b>Eficiencia</b><br><small>Máx. 200 MB de RAM, 5% de batería por hora y 50 KB por transacción.</small></div>
+<div class="card"><b>Compatibilidad</b><br><small>Android 10 o superior e iOS 15 o superior.</small></div>
+<div class="card"><b>Escalabilidad</b><br><small>1.000 solicitudes por segundo y 12 meses de historial consultable en ≤ 3 s (95%).</small></div>
+</div>
+<h3>Historias priorizadas y esfuerzo (según la presentación)</h3>
+<div class="tw"><table><thead><tr><th>Prioridad</th><th>Historia</th><th>Pts</th></tr></thead><tbody>
+<tr><td>Alta</td><td><span class="tag">HU-VEN-07</span> Integración de lectura de tarjeta y pasarela</td><td class="pts">13</td></tr>
+<tr><td>Alta</td><td><span class="tag">HU-VEN-15</span> Optimización del flujo de cobro</td><td class="pts">8</td></tr>
+<tr><td>Media</td><td><span class="tag">HU-CLI-12</span> Procesamiento seguro de datos</td><td class="pts">8</td></tr>
+<tr><td>Baja</td><td><span class="tag">HU-ADM-04</span> Panel de estadísticas</td><td class="pts">8</td></tr>
+<tr><td>Baja</td><td><span class="tag">HU-ADM-11</span> Alertas ante fallas</td><td class="pts">8</td></tr>
+<tr><td>Baja</td><td><span class="tag">HU-ADM-13</span> Reportes</td><td class="pts">8</td></tr>
+<tr><td>Baja</td><td><span class="tag">HU-ADM-15</span> Comparación de tiempos</td><td class="pts">8</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="scrum">
+<h2>Eventos Scrum</h2>
+<div class="grid">
+<div class="card"><h3>Daily Scrum</h3><p class="mut">15 min, 09:00–09:15. PO: Cristóbal Letelier · SM: Daniel Muñoz · Dev: Renato Guerra.</p></div>
+<div class="card"><h3>Sprint Review</h3><p class="mut">16 de septiembre. 1,5 h al cierre de cada sprint, con comerciantes de ferias. Feedback S1: más contraste en “Aprobado/Rechazado” para leer bajo el sol.</p></div>
+<div class="card"><h3>Retrospectiva</h3><p class="mut">1 h. Funcionó el servidor mock; mejorar estimaciones de NFC por diferencias de controladores.</p></div>
+<div class="card"><h3>Capacidad</h3><p class="mut">80 horas de desarrollo por sprint (2 semanas). Sprint Planning: 2 de septiembre.</p></div>
+</div>
+</section>
+
+<section id="dod">
+<h2>Definition of Done</h2>
+<div class="card">
+<div class="row"><span class="dot"></span><span>Cobertura de pruebas automatizadas ≥ 80% (RNF-V01).</span></div>
+<div class="row"><span class="dot"></span><span>TLS 1.3 sin almacenar PAN ni CVV (RNF-S01, S02).</span></div>
+<div class="row"><span class="dot"></span><span>Máximo 3 pasos y respuesta de pasarela ≤ 2 s (RNF-R01, RNF-U01).</span></div>
+<div class="row"><span class="dot"></span><span>Uso de RAM ≤ 200 MB (RNF-E01).</span></div>
+</div>
+</section>
+
+<footer>PayEasy Mobile · Informe de requisitos (caso 7) e historias de usuario</footer>
+
+<script>
+const RF=[["RF01","Captura de monto","Teclado digital de acceso rápido."],["RF02","Cobro con tarjeta","Lectura NFC / lector físico."],["RF03","Pasarela de pago","Transmisión cifrada y autorización inmediata."],["RF04","Notificación de resultado","Aprobada/Rechazada en menos de 2 s."],["RF05","Comprobante digital","Envío por SMS, email o código QR."],["RF06","Historial","Fecha, hora, monto, estado y últimos 4 dígitos."],["RF07","Autenticación","PIN, huella o reconocimiento facial."],["RF08","Cancelación","Antes de enviar a la pasarela."],["RF09","Envío de comprobante","Elegir correo o SMS."],["RF10","Confirmación visual","Aprobado, rechazado o pendiente, sin confusión."]];
+const S=[
+{n:"Sprint 1",t:"Core de pago y transacción presencial",g:"MVP del cobro: ingresar un monto en máximo 3 pasos y procesar la transacción por tarjeta/NFC de forma segura, con respuesta visual inmediata.",h:[
+["HU-VEN-01","Vendedor","Iniciar un nuevo cobro desde la pantalla principal",2],["HU-VEN-02","Vendedor","Iniciar un cobro con máximo tres interacciones",3],["HU-VEN-03","Vendedor","Ingresar el monto a cobrar",2],["HU-VEN-04","Vendedor","Revisar el monto antes de iniciar el pago",1],["HU-VEN-05","Vendedor","Modificar el monto antes de confirmar",2],["HU-VEN-07","Vendedor","Cliente paga con tarjeta usando mi celular (NFC)",8],["HU-VEN-08","Vendedor","Recibir rápidamente el resultado (≤ 2 s)",5],["HU-VEN-09","Vendedor","Ver claramente si el pago fue aprobado o rechazado",2],["HU-CLI-01","Cliente","Conocer el monto antes de pagar",1],["HU-CLI-02","Cliente","Pagar presencialmente con mi tarjeta",5],["HU-CLI-03","Cliente","Proceso con pocas acciones",2],["HU-CLI-04","Cliente","Respuesta rápida del resultado",3],["HU-CLI-05","Cliente","Saber claramente si el pago fue aprobado",1],["HU-CLI-12","Cliente","Datos de tarjeta procesados de forma segura (TLS 1.3)",5],["HU-CLI-13","Cliente","Sin ingresar información innecesaria",2]]},
+{n:"Sprint 2",t:"Excepciones, historial y comprobantes",g:"Gestionar excepciones, cancelaciones y reintentos sin reingresar datos, el historial de ventas y los comprobantes digitales (SMS/QR).",h:[
+["HU-VEN-06","Vendedor","Cancelar un cobro antes de procesarlo",2],["HU-VEN-10","Vendedor","Mensaje ante problema de conexión o procesamiento",3],["HU-VEN-11","Vendedor","Reintentar un cobro sin empezar de cero",3],["HU-VEN-12","Vendedor","Consultar el historial de transacciones",5],["HU-VEN-13","Vendedor","Consultar el detalle de una transacción",3],["HU-VEN-14","Vendedor","Confirmación de cada pago correcto",2],["HU-VEN-15","Vendedor","Cobro rápido y sencillo (RAM ≤ 200 MB)",3],["HU-CLI-06","Cliente","Saber si mi pago fue rechazado",2],["HU-CLI-07","Cliente","Confirmación del resultado (SMS o QR)",5],["HU-CLI-08","Cliente","Ver el monto pagado en la confirmación",1],["HU-CLI-09","Cliente","Ver fecha y hora de la transacción",1],["HU-CLI-10","Cliente","Mensaje comprensible ante un problema",2],["HU-CLI-11","Cliente","Intentar nuevamente el pago",2],["HU-CLI-14","Cliente","Resultado claro y fácil de entender",2],["HU-CLI-15","Cliente","Funcionamiento estable, sin cobros duplicados",5]]},
+{n:"Sprint 3",t:"Administración, monitoreo y métricas",g:"Plataforma web de administración: supervisión en tiempo real, gestión de vendedores, alertas, reportes y monitoreo de disponibilidad (99,9%).",h:[
+["HU-ADM-01","Administrador","Visualizar las transacciones realizadas",5],["HU-ADM-02","Administrador","Consultar el estado de las transacciones",3],["HU-ADM-03","Administrador","Buscar por fecha, vendedor o ID",3],["HU-ADM-04","Administrador","Estadísticas de transacciones",5],["HU-ADM-05","Administrador","Tiempo promedio de respuesta",3],["HU-ADM-06","Administrador","Identificar transacciones de más de 2 s",5],["HU-ADM-07","Administrador","Porcentaje de aprobadas y rechazadas",2],["HU-ADM-08","Administrador","Historial de actividad de vendedores",3],["HU-ADM-09","Administrador","Habilitar o deshabilitar vendedores",3],["HU-ADM-10","Administrador","Ver errores registrados en los cobros",5],["HU-ADM-11","Administrador","Alertas ante fallas relevantes",5],["HU-ADM-12","Administrador","Nivel de disponibilidad del sistema",3],["HU-ADM-13","Administrador","Reportes (CSV, XLSX, PDF)",5],["HU-ADM-14","Administrador","Indicadores de satisfacción (CSAT)",2],["HU-ADM-15","Administrador","Comparar tiempos con el sistema por enlaces",5]]}
+];
+let si=0,rol="Todos";
+document.getElementById("rf").innerHTML=RF.map(r=>`<div class="card"><span class="tag">${r[0]}</span><h3>${r[1]}</h3><small>${r[2]}</small></div>`).join("");
+function draw(){
+const s=S[si];
+document.getElementById("tabs").innerHTML=S.map((x,i)=>`<button class="${i==si?"on":""}" data-i="${i}">${x.n}</button>`).join("");
+document.getElementById("goal").innerHTML=`<b>${s.n}: ${s.t}</b><br><span class="mut">${s.g}</span>`;
+const roles=["Todos",...new Set(s.h.map(h=>h[1]))];
+if(!roles.includes(rol))rol="Todos";
+document.getElementById("filtro").innerHTML=roles.map(r=>`<button class="${r==rol?"on":""}" data-r="${r}">${r}</button>`).join("");
+const list=s.h.filter(h=>rol=="Todos"||h[1]==rol);
+document.getElementById("rows").innerHTML=list.map(h=>`<tr><td><span class="tag">${h[0]}</span></td><td>${h[1]}</td><td>${h[2]}</td><td class="pts">${h[3]}</td></tr>`).join("");
+document.getElementById("total").textContent=`${list.length} historias · ${list.reduce((a,h)=>a+h[3],0)} puntos`;
+}
+document.getElementById("tabs").onclick=e=>{if(e.target.dataset.i){si=+e.target.dataset.i;draw()}};
+document.getElementById("filtro").onclick=e=>{if(e.target.dataset.r){rol=e.target.dataset.r;draw()}};
+draw();
+
+/* Prototipo MVP */
+const P={m:"",s:0,r:""};
+const fmt=n=>"$"+(+n||0).toLocaleString("es-CL");
+const PH=[["HU-VEN-01","Pantalla de inicio con acceso directo a Nuevo cobro"],["HU-VEN-03","Teclado numérico con formato de moneda local"],["HU-VEN-04","Monto en tipografía grande antes de pedir la tarjeta"],["HU-VEN-07","Pago con tarjeta por NFC; la cancelación llega en el Sprint 2"],["HU-VEN-09","Aprobado en verde, rechazado en rojo, pendiente en ámbar"]];
+function screen(){
+const b=(a,t,c)=>`<button class="pbtn ${c||""}" data-a="${a}">${t}</button>`;
+let h="",top=`<div class="ph-top"><span>PayEasy Mobile</span><span>9:41</span></div>`;
+if(P.s==0)h=`<div class="ph-body"><h4>Hola, listo para vender</h4><p style="margin:0;color:#5b6678">Inicia un cobro en 3 pasos.</p>${b("start","Iniciar cobro")}</div>`;
+if(P.s==1)h=`<div class="ph-body"><h4>Monto a cobrar</h4><div class="big">${fmt(P.m)}</div><div class="keys">${[1,2,3,4,5,6,7,8,9,"00",0,"⌫"].map(k=>`<button data-a="k${k}" aria-label="${k}">${k}</button>`).join("")}</div>${b("next","Continuar")}</div>`;
+if(P.s==2)h=`<div class="ph-body"><p style="margin:0;color:#5b6678">Total a cobrar</p><div class="big">${fmt(P.m)}</div>${b("pay","Aproximar tarjeta")}${b("edit","Editar monto","sec")}</div>`;
+if(P.s==3)h=`<div class="ph-body"><h4>${fmt(P.m)}</h4><div class="pulse"></div><p style="margin:0">Acerca, inserta o desliza la tarjeta</p><div style="display:grid;gap:6px"><small style="color:#5b6678">Simular resultado</small>${b("rok","Aprobado")}${b("rbad","Rechazado","red")}${b("rwait","Pendiente","sec")}</div></div>`;
+if(P.s==4){const c={ok:["ok","✓","Pago aprobado"],bad:["bad","✕","Pago rechazado"],wait:["wait","…","Pago pendiente"]}[P.r];
+h=`<div class="res ${c[0]}"><div class="ic">${c[1]}</div><h4>${c[2]}</h4><div class="big">${fmt(P.m)}</div>${P.r=="ok"?b("new","Nuevo cobro","sec"):b("pay","Reintentar","sec")+b("new","Cancelar","sec")}</div>`;top=""}
+return top+h}
+function pdraw(){
+const st=P.s==0?0:P.s<3?1:2;
+document.getElementById("pst").innerHTML=["1 Iniciar","2 Monto","3 Cobrar"].map((x,i)=>`<span class="${i==st?"on":""}">${x}</span>`).join("");
+document.getElementById("phone").innerHTML=screen();
+const hi=[0,1,2,3,4][P.s];
+document.getElementById("phu").innerHTML=PH.map((x,i)=>`<div class="hl ${i==hi?"on":""}"><span class="tag">${x[0]}</span> ${x[1]}</div>`).join("");
+}
+document.getElementById("phone").onclick=e=>{
+const a=e.target.closest("[data-a]");if(!a)return;const k=a.dataset.a;
+if(k=="start")P.s=1;
+else if(k[0]=="k"){const v=k.slice(1);if(v=="⌫")P.m=P.m.slice(0,-1);else if(P.m.length<7)P.m=(P.m+v).replace(/^0+/,"")}
+else if(k=="next"){if(+P.m>0)P.s=2}
+else if(k=="edit")P.s=1;
+else if(k=="pay")P.s=3;
+else if(k=="rok"||k=="rbad"||k=="rwait"){P.r=k.slice(1);P.s=4}
+else if(k=="new"){P.m="";P.s=0}
+pdraw()};
+pdraw();
+
+/* Checklist de optimización */
+const O=[
+{n:"Usabilidad y diseño",i:[["Regla de los 3 pasos","Todo flujo principal (iniciar un cobro, buscar un dato) se resuelve en máximo 3 interacciones desde el inicio."],["Lenguaje natural y claro","Sin mensajes técnicos: textos simples que entienda cualquier usuario, incluso con bajo nivel tecnológico."],["Confirmaciones de alto contraste","Verde y rojo diferenciados, íconos claros y tipografía grande, legibles bajo luz solar directa."],["Diseño responsivo y componentes reutilizables","Se adapta a distintas pantallas; botones, formularios y alertas son bloques reutilizables para mantener consistencia."]]},
+{n:"Rendimiento y eficiencia",i:[["Pantalla principal en menos de 3 s","El comerciante empieza a vender sin esperar."],["Respuesta crítica en menos de 2 s","Validar una transacción en 2 segundos o menos en el 95% de los casos."],["Bajo consumo de recursos","Paquete ligero, poca RAM y mínimo uso de datos móviles por operación, para dispositivos comunes y conexiones inestables."],["Prevención de duplicados","Bloquear acciones repetidas cuando el usuario hace varios clics por ansiedad o lentitud de red."]]},
+{n:"Arquitectura y seguridad",i:[["Separación de responsabilidades","Interfaz, lógica de procesamiento y APIs externas aisladas: se puede mejorar el diseño sin romper el funcionamiento interno."],["Cifrado TLS 1.3 o superior","Todas las comunicaciones cifradas."],["Sin datos sensibles en el dispositivo","No almacenar PAN ni CVV; exigir autenticación segura."],["Disponibilidad del 99,9%","Mantenimientos fuera del horario punta."],["Cobertura de pruebas ≥ 80%","Pruebas automatizadas antes de cualquier actualización a producción."]]}
+];
+let oi=0;const done=new Set();
+function odraw(){
+document.getElementById("otabs").innerHTML=O.map((x,i)=>`<button class="${i==oi?"on":""}" data-i="${i}">${x.n}</button>`).join("");
+document.getElementById("olist").innerHTML=`<div class="card">${O[oi].i.map((x,j)=>{const k=oi+"-"+j;return `<label class="ck"><input type="checkbox" data-k="${k}" ${done.has(k)?"checked":""}><span><b>${x[0]}</b><small class="mut">${x[1]}</small></span></label>`}).join("")}</div>`;
+const tot=O.reduce((a,x)=>a+x.i.length,0);
+document.getElementById("oprog").textContent=`${done.size} de ${tot} criterios marcados como cumplidos`;
+document.getElementById("obar").style.width=(done.size/tot*100)+"%";
+}
+document.getElementById("otabs").onclick=e=>{if(e.target.dataset.i){oi=+e.target.dataset.i;odraw()}};
+document.getElementById("olist").onchange=e=>{const k=e.target.dataset.k;if(!k)return;e.target.checked?done.add(k):done.delete(k);odraw()};
+odraw();
+</script>
+</body>
+</html>
